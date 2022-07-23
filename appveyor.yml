@@ -53,7 +53,7 @@ install:
 
   - pyinstaller dist/dvr-scan.spec
   - python dist/cleanup_dependencies.py
-  - 7z e dist/windows/ffmpeg.zip -o dist/dvr-scan
+  - 7z e -odist/dvr-scan dist/windows/ffmpeg.zip
   - cd dist/dvr-scan
   - 7z a ../dvr-scan-win64.zip *
   - cd ../..
@@ -71,7 +71,7 @@ install:
   - pyinstaller dist/dvr-scan.spec --distpath dist-cuda
   - 'del %PYTHON%\\Lib\\site-packages\\cv2.cp38-win_amd64.pyd'
   - python dist/cleanup_dependencies.py
-  - 7z e dist/windows/ffmpeg.zip -o dist-cuda/dvr-scan
+  - 7z e -odist-cuda/dvr-scan dist/windows/ffmpeg.zip
   - cd dist-cuda/dvr-scan
   - 7z a ../dvr-scan-win64-cuda.zip *
   - cd ../..
