@@ -3,14 +3,15 @@
 # wheels a Windows .exe are generated below in `install`.
 build: false
 
+
 environment:
   matrix:
     - PYTHON: "C:\\Python38-x64"
-  # Encrypted AdvancedInstaller License
   ai_license_secret:
     secure: lulTujjpNX3A1RKIvj834/Czn6etzevma6oqlA5Xia5tgrg75SPXcs1lPNlu5YPU
   ai_license_salt:
     secure: kMv/7J3wqaRGUJYwnfaY6edw0VW39uX7oM9Od9PQ2wwlCmTZcwAh4kEUxhB5u91QbXmp4McMuwcXAO4UdVoSGg==
+
 
 # SignPath Config for Code Signing
 deploy:
@@ -19,29 +20,53 @@ deploy:
   authorization:
      secure: NPMogMcEb5S/ASMEiL275H79D+Pj9cgUqx8kjTPGXtF9drZW41nljczuhF1XvcxFgI0q9TA1BUX9YuCoTQ3mEQ==
 
-install:
-  - git checkout v1.5
 
+install:
+  - echo off
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo * *                           INITIALIZING BUILD                            * *
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo on
+
+  - git checkout v1.5
+  - git checkout refs/remotes/origin/build-windows -- dist/
+
+
+  - echo off
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   - echo * *                      SETTING UP PYTHON ENVIRONMENT                      * *
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo on
+
   - 'SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%'
   - python --version
   - python -m pip install --upgrade pip
-  # Make sure we get latest binary packages OpenCV.
   - "python -m pip install opencv-python opencv-contrib-python --only-binary :all:"
-
-  # Install DVR-Scan dependencies for Windows builds.
   - python -m pip install -r dist/requirements_windows.txt
 
-  # Checkout all Windows build dependencies and extract them.
-  - git checkout refs/remotes/origin/build-windows -- dist/
 
+  - echo off
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo * *                          BUILDING WINDOWS EXE                           * *
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo on
+
+  - pyinstaller dist/dvr-scan.spec
+  - python dist/cleanup_dependencies.py
+  - 7z e dist/windows/ffmpeg.zip -o dist/dvr-scan
+  - cd dist/dvr-scan
+  - 7z a ../dvr-scan-win64.zip *
+  - cd ../..
+
+
+  - echo off
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   - echo * *                       BUILDING WINDOWS EXE (CUDA)                       * *
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo on
+
   - "python -m pip uninstall -y opencv-python opencv-contrib-python"
-  - '7z e dist\\windows\\cv2.cp38-win_amd64.zip -o %PYTHON%\\Lib\\site-packages'
+  - '7z e -o%PYTHON%\\Lib\\site-packages dist\\windows\\cv2.cp38-win_amd64.zip'
   - mkdir dist-cuda
   - pyinstaller dist/dvr-scan.spec --distpath dist-cuda
   - 'del %PYTHON%\\Lib\\site-packages\\cv2.cp38-win_amd64.pyd'
@@ -52,17 +77,9 @@ install:
   - cd ../..
   - "python -m pip install opencv-python opencv-contrib-python --only-binary :all:"
 
-  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  - echo * *                          BUILDING WINDOWS EXE                           * *
-  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  - pyinstaller dist/dvr-scan.spec
-  - python dist/cleanup_dependencies.py
-  - 7z e dist/windows/ffmpeg.zip -o dist/dvr-scan
-  - cd dist/dvr-scan
-  - 7z a ../dvr-scan-win64.zip *
-  - cd ../..
 
   # TODO: Add installer.
+  #- echo off
   #- echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   #- echo * *                         BUILDING MSI INSTALLER                          * *
   #- echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -78,10 +95,14 @@ install:
   ## Create MSI installer
   #- AdvancedInstaller.com /build DVR-Scan.aip
   #- cd ../..
-  #
+
+
+  - echo off
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   - echo * *                        PACKAGING BUILD ARTIFACTS                        * *
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo on
+
   # Zip all resources together for code signing
   - cd dist
   # TODO: Add installer and CUDA build .exe.
@@ -92,10 +113,13 @@ install:
   - 7z a dvr-scan-signed.zip dvr-scan.exe
   - cd ..
 
+
 test_script:
+  - echo off
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   - echo * *                              TESTING BUILD                              * *
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo on
   # Run unit tests
   - pytest
   # Test Windows build
@@ -104,6 +128,7 @@ test_script:
   - dvr-scan.exe -i ../../tests/resources/simple_movement.mp4 -so -df 4 -et 100
   # TODO: To test the CUDA build, we need the CUDA DLLs on the server. This probably requires
   # using Git LFS as they are relatively large.
+
 
 artifacts:
   # Portable ZIP
