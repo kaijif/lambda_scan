@@ -5,7 +5,7 @@ build: false
 
 environment:
   matrix:
-    - PYTHON: "C:\\Python39-x64"
+    - PYTHON: "C:\\Python38-x64"
   # Encrypted AdvancedInstaller License
   ai_license_secret:
     secure: lulTujjpNX3A1RKIvj834/Czn6etzevma6oqlA5Xia5tgrg75SPXcs1lPNlu5YPU
@@ -36,12 +36,28 @@ install:
 
   # Checkout all Windows build dependencies and extract them.
   - git checkout refs/remotes/origin/build-windows -- dist/
+
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo * *                       BUILDING WINDOWS EXE (CUDA)                       * *
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - "python -m pip uninstall -y opencv-python opencv-contrib-python"
+  - '7z e dist\\windows\\cv2.cp38-win_amd64.zip -o %PYTHON%\\Lib\\site-packages'
+  - mkdir dist-cuda
+  - pyinstaller dist/dvr-scan.spec --distpath dist-cuda
+  - 'del %PYTHON%\\Lib\\site-packages\\cv2.cp38-win_amd64.pyd'
+  - python dist/cleanup_dependencies.py
+  - 7z e dist/windows/ffmpeg.zip -o dist-cuda/dvr-scan
+  - cd dist-cuda/dvr-scan
+  - 7z a ../dvr-scan-win64-cuda.zip *
+  - cd ../..
+  - "python -m pip install opencv-python opencv-contrib-python --only-binary :all:"
+
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   - echo * *                          BUILDING WINDOWS EXE                           * *
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  # Build Windows .EXE and create portable .ZIP
   - pyinstaller dist/dvr-scan.spec
   - python dist/cleanup_dependencies.py
+  - 7z e dist/windows/ffmpeg.zip -o dist/dvr-scan
   - cd dist/dvr-scan
   - 7z a ../dvr-scan-win64.zip *
   - cd ../..
@@ -68,7 +84,7 @@ install:
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   # Zip all resources together for code signing
   - cd dist
-  # TODO: Add installer.
+  # TODO: Add installer and CUDA build .exe.
   #- move installer\DVR-Scan-*.msi .
   - cp dvr-scan\dvr-scan.exe .
   # TODO: Add installer.
@@ -86,14 +102,16 @@ test_script:
   - cd dist/dvr-scan
   - dvr-scan.exe -v
   - dvr-scan.exe -i ../../tests/resources/simple_movement.mp4 -so -df 4 -et 100
+  # TODO: To test the CUDA build, we need the CUDA DLLs on the server. This probably requires
+  # using Git LFS as they are relatively large.
 
 artifacts:
   # Portable ZIP
   - path: dist/dvr-scan-win64.zip
     name: DVR-Scan-win64_portable
-  # MSI Installer + .EXE Bundle for Signing
-  #- path: dist/dvr-scan-signed.zip
-  #  name: DVR-Scan-win64_installer
-  # Temporary EXE-only until installer is integrated.
+  # Portable ZIP (CUDA)
+  - path: dist/dvr-scan-win64-cuda.zip
+    name: DVR-Scan-win64_cuda
+  # Bundle for Code Signing (TODO: Installer + CUDA version)
   - path: dist/dvr-scan/dvr-scan.exe
     name: DVR-Scan-win64_exeonly
