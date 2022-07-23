@@ -123,7 +123,7 @@ artifacts:
   - path: dist/dvr-scan-win64.zip
     name: DVR-Scan-win64_portable
   # Portable ZIP (CUDA)
-  - path: dist/dvr-scan-win64-cuda.zip
+  - path: dist-cuda/dvr-scan-win64-cuda.zip
     name: DVR-Scan-win64_cuda
   # Bundle for Code Signing (TODO: Installer + CUDA version)
   - path: dist/dvr-scan/dvr-scan.exe
