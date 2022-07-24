@@ -26,7 +26,7 @@ install:
   - echo * *                           INITIALIZING BUILD                            * *
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-  - git checkout v1.5
+  - git checkout v1.5-beta1
   - git checkout refs/remotes/origin/build-windows -- dist/
 
 
@@ -52,23 +52,25 @@ install:
   - 7z a ../dvr-scan-win64.zip *
   - cd ../..
 
-
-  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  - echo * *                       BUILDING WINDOWS EXE (CUDA)                       * *
-  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-  - "python -m pip uninstall -y opencv-python opencv-contrib-python"
-  - '7z e -o%PYTHON%/Lib/site-packages dist/windows/cv2.cp38-win_amd64.zip'
-  - mkdir dist-cuda
-  - pyinstaller dist/dvr-scan.spec --distpath dist-cuda
-  - 'del %PYTHON%\\Lib\\site-packages\\cv2.cp38-win_amd64.pyd'
-  - python dist/cleanup_dependencies.py
-  - 7z e -odist-cuda/dvr-scan dist/windows/ffmpeg.zip
-  - cd dist-cuda/dvr-scan
-  - 7z a ../dvr-scan-win64-cuda.zip *
-  - cd ../..
-  - "python -m pip install opencv-python opencv-contrib-python --only-binary :all:"
-
+# TODO: Put required CUDA DLLs on the server before building, otherwise the resulting exe
+# is not runnable.
+#
+#  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+#  - echo * *                       BUILDING WINDOWS EXE (CUDA)                       * *
+#  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+#
+#  - "python -m pip uninstall -y opencv-python opencv-contrib-python"
+#  - '7z e -o%PYTHON%/Lib/site-packages dist/windows/cv2.cp38-win_amd64.zip'
+#  - mkdir dist-cuda
+#  - pyinstaller dist/dvr-scan.spec --distpath dist-cuda
+#  - 'del %PYTHON%\\Lib\\site-packages\\cv2.cp38-win_amd64.pyd'
+#  - python dist/cleanup_dependencies.py
+#  - 7z e -odist-cuda/dvr-scan dist/windows/ffmpeg.zip
+#  - cd dist-cuda/dvr-scan
+#  - 7z a ../dvr-scan-win64-cuda.zip *
+#  - cd ../..
+#  - "python -m pip install opencv-python opencv-contrib-python --only-binary :all:"
+#
 
   # TODO: Add installer.
   #- echo off
@@ -122,9 +124,9 @@ artifacts:
   # Portable ZIP
   - path: dist/dvr-scan-win64.zip
     name: DVR-Scan-win64_portable
-  # Portable ZIP (CUDA)
-  - path: dist-cuda/dvr-scan-win64-cuda.zip
-    name: DVR-Scan-win64_cuda
+#  # Portable ZIP (CUDA)
+#  - path: dist-cuda/dvr-scan-win64-cuda.zip
+#    name: DVR-Scan-win64_cuda
   # Bundle for Code Signing (TODO: Installer + CUDA version)
   - path: dist/dvr-scan/dvr-scan.exe
     name: DVR-Scan-win64_exeonly
