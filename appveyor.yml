@@ -70,25 +70,23 @@ install:
 #  - 7z a ../dvr-scan-win64-cuda.zip *
 #  - cd ../..
 #  - "python -m pip install opencv-python opencv-contrib-python --only-binary :all:"
-#
+  #
 
-  # TODO: Add installer.
-  #- echo off
-  #- echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  #- echo * *                         BUILDING MSI INSTALLER                          * *
-  #- echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  ## Download, install, and register AdvancedInstaller
-  #- cd dist/installer
-  #- ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
-  #- appveyor-tools\secure-file -decrypt license65.dat.enc -secret %ai_license_secret% -salt %ai_license_salt%
-  #- appveyor DownloadFile https://www.advancedinstaller.com/downloads/advinst.msi
-  #- msiexec /i advinst.msi /qn
-  #- 'SET PATH=%PATH%;C:\\Program Files (x86)\\Caphyon\\Advanced Installer 19.5\\bin\\x86'
-  ## License path must be absolute
-  #- AdvancedInstaller.com /RegisterOffline "%cd%\license65.dat"
-  ## Create MSI installer
-  #- AdvancedInstaller.com /build DVR-Scan.aip
-  #- cd ../..
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  - echo * *                         BUILDING MSI INSTALLER                          * *
+  - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  # Download, install, and register AdvancedInstaller
+  - cd dist/installer
+  - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
+  - appveyor-tools\secure-file -decrypt license65.dat.enc -secret %ai_license_secret% -salt %ai_license_salt%
+  - appveyor DownloadFile https://www.advancedinstaller.com/downloads/advinst.msi
+  - msiexec /i advinst.msi /qn
+  - 'SET PATH=%PATH%;C:\\Program Files (x86)\\Caphyon\\Advanced Installer 19.7\\bin\\x86'
+  # License path must be absolute
+  - AdvancedInstaller.com /RegisterOffline "%cd%\license65.dat"
+  # Create MSI installer
+  - AdvancedInstaller.com /build DVR-Scan.aip
+  - cd ../..
 
 
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -98,13 +96,10 @@ install:
   # Zip all resources together for code signing
   - cd dist
   # TODO: Add installer and CUDA build .exe.
-  #- move installer\DVR-Scan-*.msi .
+  - move installer\DVR-Scan-*.msi .
   - cp dvr-scan\dvr-scan.exe .
-  # TODO: Add installer.
-  #- 7z a dvr-scan-signed.zip dvr-scan.exe DVR-Scan-*.msi
-  - 7z a dvr-scan-signed.zip dvr-scan.exe
+  - 7z a dvr-scan-signed.zip dvr-scan.exe DVR-Scan-*.msi
   - cd ..
-
 
 test_script:
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -128,5 +123,5 @@ artifacts:
 #  - path: dist-cuda/dvr-scan-win64-cuda.zip
 #    name: DVR-Scan-win64_cuda
   # Bundle for Code Signing (TODO: Installer + CUDA version)
-  - path: dist/dvr-scan/dvr-scan.exe
-    name: DVR-Scan-win64_exeonly
+  - path: dist/dvr-scan-signed.zip
+    name: DVR-Scan-win64_installer

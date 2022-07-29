@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="13.5" version="19.4" Modules="professional" RootPath="." Language="en" Id="{3919FEC9-E2C3-453E-81FD-9E8BABBE2CA4}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="HiddenItems" Value="ActSyncAppComponent;AutorunComponent;CPLAppletComponent;GameUxComponent;SilverlightSlnComponent;AppXAppDetailsComponent;FixupComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiXDiffComponent;MsixManifestEditorComponent"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
+    <ROW Property="AI_EXTERNALUIUNINSTALLERNAME" MultiBuildValue="DefaultBuild:aiui"/>
+    <ROW Property="AI_PACKAGING_TOOL" Value="Advanced Installer 19.4 build 4648ec91" ValueLocId="-"/>
+    <ROW Property="AI_PREREQ_REPAIR_ENABLED" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="AI_PRODUCTNAME_ARP" Value="DVR-Scan"/>
+    <ROW Property="AI_UNINSTALLER" Value="msiexec.exe"/>
+    <ROW Property="ALLUSERS" Value="1" MultiBuildValue="DefaultBuild:2"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install DVR-Scan." ValueLocId="*"/>
+    <ROW Property="ARPCONTACT" Value="http://dvr-scan.readthedocs.io/"/>
+    <ROW Property="ARPHELPLINK" Value="http://dvr-scan.readthedocs.io/"/>
+    <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="ARPNOREPAIR" Value="1"/>
+    <ROW Property="ARPPRODUCTICON" Value="dvr_scan_icon.exe" Type="8"/>
+    <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
+    <ROW Property="ARPURLINFOABOUT" Value="https://github.com/Breakthrough/DVR-Scan"/>
+    <ROW Property="ARPURLUPDATEINFO" Value="https://github.com/Breakthrough/DVR-Scan/releases"/>
+    <ROW Property="BannerBitmap" Value="banner.jpg" MultiBuildValue="DefaultBuild:installer_banner.jpg" Type="1" MsiKey="BannerBitmap"/>
+    <ROW Property="DialogBitmap" Value="dialog.jpg" MultiBuildValue="DefaultBuild:installer_logo.jpg" Type="1" MsiKey="DialogBitmap"/>
+    <ROW Property="Manufacturer" Value="Brandon Castellano"/>
+    <ROW Property="ProductCode" Value="1033:{26488159-5FF3-4299-B02C-D7D3666208D9} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="DVR-Scan"/>
+    <ROW Property="ProductVersion" Value="1.5"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{8FEF5940-4574-4C5D-9776-2CDDC0375510}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT" MultiBuildValue="DefaultBuild:Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNTDisplay" MultiBuildValue="DefaultBuild:32-bit Windows versions" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="core_Dir" Directory_Parent="numpy_Dir" DefaultDir="core"/>
+    <ROW Directory="cv2_Dir" Directory_Parent="APPDIR" DefaultDir="cv2"/>
+    <ROW Directory="data_Dir" Directory_Parent="cv2_Dir" DefaultDir="data"/>
+    <ROW Directory="docs_Dir" Directory_Parent="APPDIR" DefaultDir="docs"/>
+    <ROW Directory="fft_Dir" Directory_Parent="numpy_Dir" DefaultDir="fft"/>
+    <ROW Directory="guide_Dir" Directory_Parent="docs_Dir" DefaultDir="guide"/>
+    <ROW Directory="img_Dir" Directory_Parent="docs_Dir" DefaultDir="img"/>
+    <ROW Directory="linalg_Dir" Directory_Parent="numpy_Dir" DefaultDir="linalg"/>
+    <ROW Directory="numpy_Dir" Directory_Parent="APPDIR" DefaultDir="numpy"/>
+    <ROW Directory="other_Dir" Directory_Parent="docs_Dir" DefaultDir="other"/>
+    <ROW Directory="random_Dir" Directory_Parent="numpy_Dir" DefaultDir="random"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AI_CustomARPName" ComponentId="{845184E0-D308-4D8F-86F2-FAA3BDAA76E1}" Directory_="APPDIR" Attributes="260" KeyPath="DisplayName" Options="1"/>
+    <ROW Component="AI_DisableModify" ComponentId="{653C9260-5E39-41EA-9C74-362F9C299BED}" Directory_="APPDIR" Attributes="260" KeyPath="NoModify" Options="1"/>
+    <ROW Component="APPDIR" ComponentId="{088A429B-96BF-40BE-9BA2-B2CA5EB76862}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="C4FE6FD5B7C4D07B3A313E754A9A6A8" ComponentId="{0DC87E5B-5F60-4A9A-AB46-BF92FDC477F3}" Directory_="APPDIR" Attributes="260" KeyPath="C4FE6FD5B7C4D07B3A313E754A9A6A8" Options="2"/>
+    <ROW Component="LICENSE" ComponentId="{6F5E7614-9C0C-470A-8B75-22ED54292AC4}" Directory_="APPDIR" Attributes="0" KeyPath="LICENSE" Type="0"/>
+    <ROW Component="ProductInformation" ComponentId="{C45D033C-5DD4-40D4-AABA-C6639AF83796}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="VCRUNTIME140.dll" ComponentId="{0F10E626-8119-4DF8-99CB-8AE99DCB19AB}" Directory_="APPDIR" Attributes="256" KeyPath="VCRUNTIME140.dll"/>
+    <ROW Component="__init__.py" ComponentId="{4C1C40F6-7832-4C2C-B073-4A2343CE9832}" Directory_="data_Dir" Attributes="0" KeyPath="__init__.py" Type="0"/>
+    <ROW Component="_multiarray_tests.cp38win_amd64.pyd" ComponentId="{0D50FA90-7EFE-45B0-8F71-B4C711BFEC7D}" Directory_="core_Dir" Attributes="256" KeyPath="_multiarray_tests.cp38win_amd64.pyd" Type="0"/>
+    <ROW Component="_pocketfft_internal.cp38win_amd64.pyd" ComponentId="{35798DE3-F7FA-4481-B1A6-E792484C0EA0}" Directory_="fft_Dir" Attributes="256" KeyPath="_pocketfft_internal.cp38win_amd64.pyd" Type="0"/>
+    <ROW Component="apimswincoreconsolel110.dll" ComponentId="{DC0AF020-454E-4182-B292-67817B4D7E7E}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
+    <ROW Component="apimswincoredatetimel110.dll" ComponentId="{D963E45F-A0FC-440F-AD66-85944953976A}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
+    <ROW Component="apimswincoredebugl110.dll" ComponentId="{6E4688BB-D55A-414B-AE05-DFDB4411CFED}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoredebugl110.dll"/>
+    <ROW Component="apimswincoreerrorhandlingl110.dll" ComponentId="{E366CC0D-30C4-45CA-B8C5-A3B7B6D5D87D}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreerrorhandlingl110.dll"/>
+    <ROW Component="apimswincorefibersl110.dll" ComponentId="{7E182556-0A41-4774-9562-9A336A5E811A}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorefibersl110.dll"/>
+    <ROW Component="apimswincorefilel110.dll" ComponentId="{A8D5FA71-B2DF-45DD-B0E0-F1D812682DDB}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorefilel110.dll"/>
+    <ROW Component="apimswincorefilel120.dll" ComponentId="{28AD6B48-BF7E-49F6-B8CB-A16D623AB8FE}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorefilel120.dll"/>
+    <ROW Component="apimswincorefilel210.dll" ComponentId="{4D396614-1D74-46D0-BD1E-8068F0B7889A}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorefilel210.dll"/>
+    <ROW Component="apimswincorehandlel110.dll" ComponentId="{07D94DAB-6C41-40A3-AC37-F89EF99B565D}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorehandlel110.dll"/>
+    <ROW Component="apimswincoreheapl110.dll" ComponentId="{5032CBA5-698E-4096-A6A8-AC273AF8EE87}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreheapl110.dll"/>
+    <ROW Component="apimswincoreinterlockedl110.dll" ComponentId="{C11CDEFF-76B8-422A-8602-DE9D2871EA88}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreinterlockedl110.dll"/>
+    <ROW Component="apimswincorelibraryloaderl110.dll" ComponentId="{0E731EC9-4B96-4C0C-AF26-F28E7CDE839D}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorelibraryloaderl110.dll"/>
+    <ROW Component="apimswincorelocalizationl120.dll" ComponentId="{FE49CBD6-94A3-453E-AB4C-E2B1889777B3}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorelocalizationl120.dll"/>
+    <ROW Component="apimswincorememoryl110.dll" ComponentId="{01047E14-D917-4E49-88B4-E76308DEBBD1}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorememoryl110.dll"/>
+    <ROW Component="apimswincorenamedpipel110.dll" ComponentId="{2A8CF25F-ACC2-431A-8053-30C1BC2E6A21}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorenamedpipel110.dll"/>
+    <ROW Component="apimswincoreprocessenvironmentl110.dll" ComponentId="{F980AAA0-2132-4797-9C23-17C3A75C8D8B}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreprocessenvironmentl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl110.dll" ComponentId="{35168062-0796-4E48-A2B8-EB551B6B8597}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreprocessthreadsl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl111.dll" ComponentId="{8B557D91-511F-459E-B23D-5AAD1261A4C7}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreprocessthreadsl111.dll"/>
+    <ROW Component="apimswincoreprofilel110.dll" ComponentId="{3B28D427-81C7-4E34-B9EC-ECEA8EB92C4D}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreprofilel110.dll"/>
+    <ROW Component="apimswincorertlsupportl110.dll" ComponentId="{55BE4216-86EB-47D5-BF19-2E2A43B41AA3}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorertlsupportl110.dll"/>
+    <ROW Component="apimswincorestringl110.dll" ComponentId="{68A174B7-F3E1-4D06-A41A-923D11F830AF}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincorestringl110.dll"/>
+    <ROW Component="apimswincoresynchl110.dll" ComponentId="{1497C2A8-DA83-4C1F-807A-3FD93815B293}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoresynchl110.dll"/>
+    <ROW Component="apimswincoresynchl120.dll" ComponentId="{6BE41A61-F755-4276-8278-8D017583FD30}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoresynchl120.dll"/>
+    <ROW Component="apimswincoresysinfol110.dll" ComponentId="{2D15E689-FCCC-4AC2-821C-9E8B9D680044}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoresysinfol110.dll"/>
+    <ROW Component="apimswincoretimezonel110.dll" ComponentId="{67D6B3F1-42E4-4E0F-973D-429E28F5345E}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoretimezonel110.dll"/>
+    <ROW Component="apimswincoreutill110.dll" ComponentId="{CE2BF648-CEC7-4A32-9797-438C67BFAA0A}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincoreutill110.dll"/>
+    <ROW Component="apimswincrtconiol110.dll" ComponentId="{4C95D996-EEC5-433D-A94C-62C540F271CC}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtconiol110.dll"/>
+    <ROW Component="apimswincrtconvertl110.dll" ComponentId="{96E4A772-CA40-4400-B7DC-74041709E0EF}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtconvertl110.dll"/>
+    <ROW Component="apimswincrtenvironmentl110.dll" ComponentId="{7B5580AC-B780-40A2-A9E6-603FF1CA5E9A}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtenvironmentl110.dll"/>
+    <ROW Component="apimswincrtfilesysteml110.dll" ComponentId="{AB20DFF0-0F2D-4ACE-8DE9-5A2F15F694C4}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtfilesysteml110.dll"/>
+    <ROW Component="apimswincrtheapl110.dll" ComponentId="{1A33DA78-A418-48BE-870A-95671DABAA29}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtheapl110.dll"/>
+    <ROW Component="apimswincrtlocalel110.dll" ComponentId="{27B118E5-E7E4-4326-A7EE-77BC63E8DBE4}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtlocalel110.dll"/>
+    <ROW Component="apimswincrtmathl110.dll" ComponentId="{CA57B538-3E66-4FB5-B7E3-0D34F617723A}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtmathl110.dll"/>
+    <ROW Component="apimswincrtprocessl110.dll" ComponentId="{9B2CEC3D-612B-4E45-83D4-9C6EE0648572}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtprocessl110.dll"/>
+    <ROW Component="apimswincrtruntimel110.dll" ComponentId="{D9D98B8A-DE68-4955-80F9-41A693633E75}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtruntimel110.dll"/>
+    <ROW Component="apimswincrtstdiol110.dll" ComponentId="{D6C3F485-38DF-4599-AE5D-0954DD77BC8F}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtstdiol110.dll"/>
+    <ROW Component="apimswincrtstringl110.dll" ComponentId="{F96F407E-4A12-47EA-A48E-21C68D2C4C12}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtstringl110.dll"/>
+    <ROW Component="apimswincrttimel110.dll" ComponentId="{CCFBEF31-DE54-4353-A564-94D3B4849C08}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrttimel110.dll"/>
+    <ROW Component="apimswincrtutilityl110.dll" ComponentId="{06756378-E771-4CA6-A88A-0BDA59647772}" Directory_="APPDIR" Attributes="256" KeyPath="apimswincrtutilityl110.dll"/>
+    <ROW Component="bit_generator.cp38win_amd64.pyd" ComponentId="{369F3E72-17C5-4B2D-97E8-19D126FE4AF2}" Directory_="random_Dir" Attributes="256" KeyPath="bit_generator.cp38win_amd64.pyd" Type="0"/>
+    <ROW Component="changelog.md" ComponentId="{1EE68B7A-844C-4772-B1CF-20C9A3A4E3E4}" Directory_="docs_Dir" Attributes="0" KeyPath="changelog.md" Type="0"/>
+    <ROW Component="config_file.md" ComponentId="{D9374F4C-A5B0-4186-9760-550D90003BB3}" Directory_="guide_Dir" Attributes="0" KeyPath="config_file.md" Type="0"/>
+    <ROW Component="cv2.cp38win_amd64.pyd" ComponentId="{373D6BCC-D7A7-45F3-8824-FFFBC3F90397}" Directory_="cv2_Dir" Attributes="256" KeyPath="cv2.cp38win_amd64.pyd" Type="0"/>
+    <ROW Component="dvrscan.exe" ComponentId="{BFAC0A4B-76D6-4EF9-B2B5-DFB8B5AC8885}" Directory_="APPDIR" Attributes="256" KeyPath="dvrscan.exe"/>
+    <ROW Component="dvrscanlogo_small.png" ComponentId="{83FDDB6A-E97D-4B26-97E7-E44D4A995B5B}" Directory_="img_Dir" Attributes="0" KeyPath="dvrscanlogo_small.png" Type="0"/>
+    <ROW Component="ffmpeg.exe" ComponentId="{BBCE1F27-65DC-461F-B81C-CF84ED2D7201}" Directory_="APPDIR" Attributes="256" KeyPath="ffmpeg.exe"/>
+    <ROW Component="lapack_lite.cp38win_amd64.pyd" ComponentId="{58182DCD-EA11-4158-B684-8F00EF6FA24C}" Directory_="linalg_Dir" Attributes="256" KeyPath="lapack_lite.cp38win_amd64.pyd" Type="0"/>
+    <ROW Component="libcrypto1_1.dll" ComponentId="{A2F85864-05DF-4EDD-9474-4F0E0F6FEF03}" Directory_="APPDIR" Attributes="256" KeyPath="libcrypto1_1.dll"/>
+    <ROW Component="libffi7.dll" ComponentId="{52566F45-1014-4381-A886-C74B6B46F09A}" Directory_="APPDIR" Attributes="256" KeyPath="libffi7.dll"/>
+    <ROW Component="libopenblas.FB5AE2TYXYH2IJRDKGDGQ3XBKLKTF43H.gfortranwin_amd64.dll" ComponentId="{1A2ABF3D-519E-4A61-98A8-3C9F1156BB86}" Directory_="APPDIR" Attributes="256" KeyPath="libopenblas.FB5AE2TYXYH2IJRDKGDGQ3XBKLKTF43H.gfortranwin_amd64.dll"/>
+    <ROW Component="libssl1_1.dll" ComponentId="{C2D4D880-4F52-4FAD-9E8E-441C1301EBFB}" Directory_="APPDIR" Attributes="256" KeyPath="libssl1_1.dll"/>
+    <ROW Component="opencv_videoio_ffmpeg451_64.dll" ComponentId="{42AF0E84-F851-4F97-B15B-49A8F4C00469}" Directory_="cv2_Dir" Attributes="256" KeyPath="opencv_videoio_ffmpeg451_64.dll"/>
+    <ROW Component="python38.dll" ComponentId="{4AD5DF2C-B999-4BA6-BC56-790859C83735}" Directory_="APPDIR" Attributes="256" KeyPath="python38.dll"/>
+    <ROW Component="similar_software.md" ComponentId="{170A1757-E56D-4452-B20D-DB15564FBB04}" Directory_="other_Dir" Attributes="0" KeyPath="similar_software.md" Type="0"/>
+    <ROW Component="ucrtbase.dll" ComponentId="{0875B3E3-3556-453B-A341-C89E6EA8710A}" Directory_="APPDIR" Attributes="256" KeyPath="ucrtbase.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="C4FE6FD5B7C4D07B3A313E754A9A6A8" Title="Visual C++ Redistributable for Visual Studio 2015-2019 x64" Description="Visual C++ Redistributable for Visual Studio 2015-2019 x64" Display="7" Level="1" Attributes="0"/>
+    <ROW Feature="DVRScan" Title="DVR-Scan" Description="DVR-Scan program" Display="3" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ROW Feature="ffmpeg" Title="ffmpeg" Description="Required for certain output modes" Display="5" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ATTRIBUTE name="CurrentFeature" value="DVRScan"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="ffmpeg.exe" Component_="ffmpeg.exe" FileName="ffmpeg.exe" Attributes="0" SourcePath="..\dvr-scan\ffmpeg.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="libcrypto1_1.dll" Component_="libcrypto1_1.dll" FileName="LIBCRY~1.DLL|libcrypto-1_1.dll" Attributes="0" SourcePath="..\dvr-scan\libcrypto-1_1.dll" SelfReg="false"/>
+    <ROW File="libffi7.dll" Component_="libffi7.dll" FileName="libffi-7.dll" Attributes="0" SourcePath="..\dvr-scan\libffi-7.dll" SelfReg="false"/>
+    <ROW File="libopenblas.FB5AE2TYXYH2IJRDKGDGQ3XBKLKTF43H.gfortranwin_amd64.dll" Component_="libopenblas.FB5AE2TYXYH2IJRDKGDGQ3XBKLKTF43H.gfortranwin_amd64.dll" FileName="LIBOPE~1.DLL|libopenblas.FB5AE2TYXYH2IJRDKGDGQ3XBKLKTF43H.gfortran-win_amd64.dll" Attributes="0" SourcePath="..\dvr-scan\libopenblas.FB5AE2TYXYH2IJRDKGDGQ3XBKLKTF43H.gfortran-win_amd64.dll" SelfReg="false"/>
+    <ROW File="libssl1_1.dll" Component_="libssl1_1.dll" FileName="LIBSSL~1.DLL|libssl-1_1.dll" Attributes="0" SourcePath="..\dvr-scan\libssl-1_1.dll" SelfReg="false"/>
+    <ROW File="LICENSE" Component_="LICENSE" FileName="LICENSE" Attributes="0" SourcePath="..\dvr-scan\LICENSE" SelfReg="false"/>
+    <ROW File="LICENSETHIRDPARTY" Component_="LICENSE" FileName="LICENS~1|LICENSE-THIRDPARTY" Attributes="0" SourcePath="..\dvr-scan\LICENSE-THIRDPARTY" SelfReg="false"/>
+    <ROW File="pyexpat.pyd" Component_="LICENSE" FileName="pyexpat.pyd" Attributes="0" SourcePath="..\dvr-scan\pyexpat.pyd" SelfReg="false"/>
+    <ROW File="python38.dll" Component_="python38.dll" FileName="python38.dll" Attributes="0" SourcePath="..\dvr-scan\python38.dll" SelfReg="false"/>
+    <ROW File="README.md" Component_="LICENSE" FileName="README.md" Attributes="0" SourcePath="..\dvr-scan\README.md" SelfReg="false"/>
+    <ROW File="select.pyd" Component_="LICENSE" FileName="select.pyd" Attributes="0" SourcePath="..\dvr-scan\select.pyd" SelfReg="false"/>
+    <ROW File="ucrtbase.dll" Component_="ucrtbase.dll" FileName="ucrtbase.dll" Attributes="0" SourcePath="..\dvr-scan\ucrtbase.dll" SelfReg="false"/>
+    <ROW File="unicodedata.pyd" Component_="LICENSE" FileName="UNICOD~1.PYD|unicodedata.pyd" Attributes="0" SourcePath="..\dvr-scan\unicodedata.pyd" SelfReg="false"/>
+    <ROW File="VCRUNTIME140.dll" Component_="VCRUNTIME140.dll" FileName="VCRUNT~1.DLL|VCRUNTIME140.dll" Attributes="0" SourcePath="..\dvr-scan\VCRUNTIME140.dll" SelfReg="false"/>
+    <ROW File="cv2.cp38win_amd64.pyd" Component_="cv2.cp38win_amd64.pyd" FileName="CV2CP3~1.PYD|cv2.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\cv2\cv2.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="__init__.py" Component_="__init__.py" FileName="__init__.py" Attributes="0" SourcePath="..\dvr-scan\cv2\data\__init__.py" SelfReg="false"/>
+    <ROW File="opencv_videoio_ffmpeg451_64.dll" Component_="opencv_videoio_ffmpeg451_64.dll" FileName="OPENCV~1.DLL|opencv_videoio_ffmpeg451_64.dll" Attributes="0" SourcePath="..\dvr-scan\cv2\opencv_videoio_ffmpeg451_64.dll" SelfReg="false"/>
+    <ROW File="version.py" Component_="cv2.cp38win_amd64.pyd" FileName="version.py" Attributes="0" SourcePath="..\dvr-scan\cv2\version.py" SelfReg="false"/>
+    <ROW File="__init__.py_1" Component_="cv2.cp38win_amd64.pyd" FileName="__init__.py" Attributes="0" SourcePath="..\dvr-scan\cv2\__init__.py" SelfReg="false"/>
+    <ROW File="changelog.md" Component_="changelog.md" FileName="CHANGE~1.MD|changelog.md" Attributes="0" SourcePath="..\dvr-scan\docs\changelog.md" SelfReg="false"/>
+    <ROW File="contributing.md" Component_="changelog.md" FileName="CONTRI~1.MD|contributing.md" Attributes="0" SourcePath="..\dvr-scan\docs\contributing.md" SelfReg="false"/>
+    <ROW File="copyright.md" Component_="changelog.md" FileName="COPYRI~1.MD|copyright.md" Attributes="0" SourcePath="..\dvr-scan\docs\copyright.md" SelfReg="false"/>
+    <ROW File="download.md" Component_="changelog.md" FileName="download.md" Attributes="0" SourcePath="..\dvr-scan\docs\download.md" SelfReg="false"/>
+    <ROW File="config_file.md" Component_="config_file.md" FileName="CONFIG~1.MD|config_file.md" Attributes="0" SourcePath="..\dvr-scan\docs\guide\config_file.md" SelfReg="false"/>
+    <ROW File="faq.md" Component_="config_file.md" FileName="faq.md" Attributes="0" SourcePath="..\dvr-scan\docs\guide\faq.md" SelfReg="false"/>
+    <ROW File="options.md" Component_="config_file.md" FileName="options.md" Attributes="0" SourcePath="..\dvr-scan\docs\guide\options.md" SelfReg="false"/>
+    <ROW File="quickstart.md" Component_="config_file.md" FileName="QUICKS~1.MD|quickstart.md" Attributes="0" SourcePath="..\dvr-scan\docs\guide\quickstart.md" SelfReg="false"/>
+    <ROW File="dvrscanlogo_small.png" Component_="dvrscanlogo_small.png" FileName="DVR-SC~1.PNG|dvr-scan-logo_small.png" Attributes="0" SourcePath="..\dvr-scan\docs\img\dvr-scan-logo_small.png" SelfReg="false"/>
+    <ROW File="index.md" Component_="changelog.md" FileName="index.md" Attributes="0" SourcePath="..\dvr-scan\docs\index.md" SelfReg="false"/>
+    <ROW File="similar_software.md" Component_="similar_software.md" FileName="SIMILA~1.MD|similar_software.md" Attributes="0" SourcePath="..\dvr-scan\docs\other\similar_software.md" SelfReg="false"/>
+    <ROW File="requirements.txt" Component_="changelog.md" FileName="REQUIR~1.TXT|requirements.txt" Attributes="0" SourcePath="..\dvr-scan\docs\requirements.txt" SelfReg="false"/>
+    <ROW File="_multiarray_tests.cp38win_amd64.pyd" Component_="_multiarray_tests.cp38win_amd64.pyd" FileName="_MULTI~1.PYD|_multiarray_tests.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\core\_multiarray_tests.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_multiarray_umath.cp38win_amd64.pyd" Component_="_multiarray_tests.cp38win_amd64.pyd" FileName="_MULTI~2.PYD|_multiarray_umath.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\core\_multiarray_umath.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_pocketfft_internal.cp38win_amd64.pyd" Component_="_pocketfft_internal.cp38win_amd64.pyd" FileName="_POCKE~1.PYD|_pocketfft_internal.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\fft\_pocketfft_internal.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="lapack_lite.cp38win_amd64.pyd" Component_="lapack_lite.cp38win_amd64.pyd" FileName="LAPACK~1.PYD|lapack_lite.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\linalg\lapack_lite.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_umath_linalg.cp38win_amd64.pyd" Component_="lapack_lite.cp38win_amd64.pyd" FileName="_UMATH~1.PYD|_umath_linalg.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\linalg\_umath_linalg.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="bit_generator.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="BIT_GE~1.PYD|bit_generator.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\bit_generator.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="mtrand.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="MTRAND~1.PYD|mtrand.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\mtrand.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_bounded_integers.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="_BOUND~1.PYD|_bounded_integers.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\_bounded_integers.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_common.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="_COMMO~1.PYD|_common.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\_common.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_generator.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="_GENER~1.PYD|_generator.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\_generator.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_mt19937.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="_MT199~1.PYD|_mt19937.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\_mt19937.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_pcg64.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="_PCG64~1.PYD|_pcg64.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\_pcg64.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_philox.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="_PHILO~1.PYD|_philox.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\_philox.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_sfc64.cp38win_amd64.pyd" Component_="bit_generator.cp38win_amd64.pyd" FileName="_SFC64~1.PYD|_sfc64.cp38-win_amd64.pyd" Attributes="0" SourcePath="..\dvr-scan\numpy\random\_sfc64.cp38-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="_asyncio.pyd" Component_="LICENSE" FileName="_asyncio.pyd" Attributes="0" SourcePath="..\dvr-scan\_asyncio.pyd" SelfReg="false"/>
+    <ROW File="_ctypes.pyd" Component_="LICENSE" FileName="_ctypes.pyd" Attributes="0" SourcePath="..\dvr-scan\_ctypes.pyd" SelfReg="false"/>
+    <ROW File="_overlapped.pyd" Component_="LICENSE" FileName="_OVERL~1.PYD|_overlapped.pyd" Attributes="0" SourcePath="..\dvr-scan\_overlapped.pyd" SelfReg="false"/>
+    <ROW File="_queue.pyd" Component_="LICENSE" FileName="_queue.pyd" Attributes="0" SourcePath="..\dvr-scan\_queue.pyd" SelfReg="false"/>
+    <ROW File="_socket.pyd" Component_="LICENSE" FileName="_socket.pyd" Attributes="0" SourcePath="..\dvr-scan\_socket.pyd" SelfReg="false"/>
+    <ROW File="_ssl.pyd" Component_="LICENSE" FileName="_ssl.pyd" Attributes="0" SourcePath="..\dvr-scan\_ssl.pyd" SelfReg="false"/>
+    <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~1.DLL|api-ms-win-core-console-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-console-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoredatetimel110.dll" Component_="apimswincoredatetimel110.dll" FileName="API-MS~2.DLL|api-ms-win-core-datetime-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-datetime-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoredebugl110.dll" Component_="apimswincoredebugl110.dll" FileName="API-MS~3.DLL|api-ms-win-core-debug-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-debug-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreerrorhandlingl110.dll" Component_="apimswincoreerrorhandlingl110.dll" FileName="API-MS~4.DLL|api-ms-win-core-errorhandling-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-errorhandling-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefibersl110.dll" Component_="apimswincorefibersl110.dll" FileName="API-MS~5.DLL|api-ms-win-core-fibers-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-fibers-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefilel110.dll" Component_="apimswincorefilel110.dll" FileName="API-MS~6.DLL|api-ms-win-core-file-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-file-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefilel120.dll" Component_="apimswincorefilel120.dll" FileName="API-MS~7.DLL|api-ms-win-core-file-l1-2-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-file-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefilel210.dll" Component_="apimswincorefilel210.dll" FileName="API-MS~8.DLL|api-ms-win-core-file-l2-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-file-l2-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorehandlel110.dll" Component_="apimswincorehandlel110.dll" FileName="API-MS~9.DLL|api-ms-win-core-handle-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-handle-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreheapl110.dll" Component_="apimswincoreheapl110.dll" FileName="API-M~10.DLL|api-ms-win-core-heap-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-heap-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreinterlockedl110.dll" Component_="apimswincoreinterlockedl110.dll" FileName="API-M~11.DLL|api-ms-win-core-interlocked-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-interlocked-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorelibraryloaderl110.dll" Component_="apimswincorelibraryloaderl110.dll" FileName="API-M~12.DLL|api-ms-win-core-libraryloader-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-libraryloader-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorelocalizationl120.dll" Component_="apimswincorelocalizationl120.dll" FileName="API-M~13.DLL|api-ms-win-core-localization-l1-2-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-localization-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorememoryl110.dll" Component_="apimswincorememoryl110.dll" FileName="API-M~14.DLL|api-ms-win-core-memory-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-memory-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorenamedpipel110.dll" Component_="apimswincorenamedpipel110.dll" FileName="API-M~15.DLL|api-ms-win-core-namedpipe-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-namedpipe-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprocessenvironmentl110.dll" Component_="apimswincoreprocessenvironmentl110.dll" FileName="API-M~16.DLL|api-ms-win-core-processenvironment-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-processenvironment-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprocessthreadsl110.dll" Component_="apimswincoreprocessthreadsl110.dll" FileName="API-M~17.DLL|api-ms-win-core-processthreads-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-processthreads-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprocessthreadsl111.dll" Component_="apimswincoreprocessthreadsl111.dll" FileName="API-M~18.DLL|api-ms-win-core-processthreads-l1-1-1.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-processthreads-l1-1-1.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprofilel110.dll" Component_="apimswincoreprofilel110.dll" FileName="API-M~19.DLL|api-ms-win-core-profile-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-profile-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorertlsupportl110.dll" Component_="apimswincorertlsupportl110.dll" FileName="API-M~20.DLL|api-ms-win-core-rtlsupport-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-rtlsupport-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorestringl110.dll" Component_="apimswincorestringl110.dll" FileName="API-M~21.DLL|api-ms-win-core-string-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-string-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoresynchl110.dll" Component_="apimswincoresynchl110.dll" FileName="API-M~22.DLL|api-ms-win-core-synch-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-synch-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoresynchl120.dll" Component_="apimswincoresynchl120.dll" FileName="API-M~23.DLL|api-ms-win-core-synch-l1-2-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-synch-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoresysinfol110.dll" Component_="apimswincoresysinfol110.dll" FileName="API-M~24.DLL|api-ms-win-core-sysinfo-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-sysinfo-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoretimezonel110.dll" Component_="apimswincoretimezonel110.dll" FileName="API-M~25.DLL|api-ms-win-core-timezone-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-timezone-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreutill110.dll" Component_="apimswincoreutill110.dll" FileName="API-M~26.DLL|api-ms-win-core-util-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-core-util-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtconiol110.dll" Component_="apimswincrtconiol110.dll" FileName="API-M~27.DLL|api-ms-win-crt-conio-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-conio-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtconvertl110.dll" Component_="apimswincrtconvertl110.dll" FileName="API-M~28.DLL|api-ms-win-crt-convert-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-convert-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtenvironmentl110.dll" Component_="apimswincrtenvironmentl110.dll" FileName="API-M~29.DLL|api-ms-win-crt-environment-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-environment-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtfilesysteml110.dll" Component_="apimswincrtfilesysteml110.dll" FileName="API-M~30.DLL|api-ms-win-crt-filesystem-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-filesystem-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtheapl110.dll" Component_="apimswincrtheapl110.dll" FileName="API-M~31.DLL|api-ms-win-crt-heap-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-heap-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtlocalel110.dll" Component_="apimswincrtlocalel110.dll" FileName="API-M~32.DLL|api-ms-win-crt-locale-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-locale-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtmathl110.dll" Component_="apimswincrtmathl110.dll" FileName="API-M~33.DLL|api-ms-win-crt-math-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-math-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtprocessl110.dll" Component_="apimswincrtprocessl110.dll" FileName="API-M~34.DLL|api-ms-win-crt-process-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-process-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtruntimel110.dll" Component_="apimswincrtruntimel110.dll" FileName="API-M~35.DLL|api-ms-win-crt-runtime-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-runtime-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtstdiol110.dll" Component_="apimswincrtstdiol110.dll" FileName="API-M~36.DLL|api-ms-win-crt-stdio-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-stdio-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtstringl110.dll" Component_="apimswincrtstringl110.dll" FileName="API-M~37.DLL|api-ms-win-crt-string-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-string-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrttimel110.dll" Component_="apimswincrttimel110.dll" FileName="API-M~38.DLL|api-ms-win-crt-time-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-time-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtutilityl110.dll" Component_="apimswincrtutilityl110.dll" FileName="API-M~39.DLL|api-ms-win-crt-utility-l1-1-0.dll" Attributes="0" SourcePath="..\dvr-scan\api-ms-win-crt-utility-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="base_library.zip" Component_="LICENSE" FileName="BASE_L~1.ZIP|base_library.zip" Attributes="0" SourcePath="..\dvr-scan\base_library.zip" SelfReg="false"/>
+    <ROW File="dvrscan.exe" Component_="dvrscan.exe" FileName="dvr-scan.exe" Attributes="0" SourcePath="..\dvr-scan\dvr-scan.exe" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="." PackageFileName="DVR-Scan-1.5-win64" Languages="en" InstallationType="4" CabsLocation="1" ExtUI="true" UseLargeSchema="true" MsiPackageType="x64"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="PrerequisitesDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\PrerequisitesDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="Themes.aip" Path="&lt;AI_FRAGS&gt;Themes.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
+    <ROW Action="AI_DownloadPrereq" Description="Downloading prerequisite software" DescriptionLocId="ActionText.Description.AI_DownloadPrereq" Template="Downloading [1]{[2] completed}" TemplateLocId="ActionText.Template.AI_DownloadPrereq"/>
+    <ROW Action="AI_ExtractPrereq" Description="Extracting prerequisite software" DescriptionLocId="ActionText.Description.AI_ExtractPrereq" Template="Extracting [1]{[2] completed}" TemplateLocId="ActionText.Template.AI_ExtractPrereq"/>
+    <ROW Action="AI_InstallPostPrerequisite" Description="Installing prerequisite software" DescriptionLocId="ActionText.Description.AI_InstallPrerequisite" Template="Installing [1]{[2] completed}" TemplateLocId="ActionText.Template.AI_InstallPrerequisite"/>
+    <ROW Action="AI_InstallPrerequisite" Description="Installing prerequisite software" DescriptionLocId="ActionText.Description.AI_InstallPrerequisite" Template="Installing [1]{[2] completed}" TemplateLocId="ActionText.Template.AI_InstallPrerequisite"/>
+    <ROW Action="AI_VerifyPrereq" Description="Verifying prerequisites" DescriptionLocId="ActionText.Description.AI_VerifyPrereq" Template="[1] was not installed correctly." TemplateLocId="ActionText.Template.AI_VerifyPrereq"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="ExternalUICleaner.dll" SourcePath="&lt;AI_CUSTACTS&gt;ExternalUICleaner.dll"/>
+    <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+    <ROW Name="file_deleter.ps1" SourcePath="&lt;AI_SCRIPTS&gt;file_deleter.ps1"/>
+    <ROW Name="installer_banner.jpg" SourcePath="Generated Images\installer_banner.jpg"/>
+    <ROW Name="installer_logo.jpg" SourcePath="Generated Images\installer_logo.jpg"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="PrerequisitesDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="PrerequisitesDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="PrerequisitesDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="PrerequisitesDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="ExitDialog" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="301"/>
+    <ROW Dialog_="FatalError" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="102"/>
+    <ROW Dialog_="UserExit" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="101"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_AppSearchEx" Type="1" Source="Prereq.dll" Target="DoAppSearchEx"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_CleanPrereq" Type="65" Source="Prereq.dll" Target="CleanPrereq" WithoutSeq="true"/>
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DoRemoveExternalUIStub" Type="3585" Source="ExternalUICleaner.dll" Target="DoRemoveExternalUIStub" WithoutSeq="true"/>
+    <ROW Action="AI_DownloadPrereq" Type="1" Source="Prereq.dll" Target="DownloadPrereq"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_ExtractPrereq" Type="65" Source="Prereq.dll" Target="ExtractPrereq"/>
+    <ROW Action="AI_GetArpIconPath" Type="1" Source="aicustact.dll" Target="GetArpIconPath"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_InstallPostPrerequisite" Type="1" Source="Prereq.dll" Target="InstallPostPrereq"/>
+    <ROW Action="AI_InstallPrerequisite" Type="1" Source="Prereq.dll" Target="InstallPrereq"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_RemoveExternalUIStub" Type="1" Source="ExternalUICleaner.dll" Target="RemoveExternalUIStub"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SETMIXINSTLOCATION" Type="1" Source="aicustact.dll" Target="MixedAllUsersInstallLocation"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_VerifyPrereq" Type="1" Source="Prereq.dll" Target="VerifyPrereq"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[AI_UserProgramFiles]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiEnvComponent">
+    <ROW Environment="Path" Name="=-*Path" Value="[~];[APPDIR]" Component_="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="DVRScan" Component_="ProductInformation"/>
+    <ROW Feature_="DVRScan" Component_="APPDIR"/>
+    <ROW Feature_="DVRScan" Component_="AI_CustomARPName"/>
+    <ROW Feature_="DVRScan" Component_="AI_DisableModify"/>
+    <ROW Feature_="DVRScan" Component_="libcrypto1_1.dll"/>
+    <ROW Feature_="DVRScan" Component_="libffi7.dll"/>
+    <ROW Feature_="DVRScan" Component_="libopenblas.FB5AE2TYXYH2IJRDKGDGQ3XBKLKTF43H.gfortranwin_amd64.dll"/>
+    <ROW Feature_="DVRScan" Component_="libssl1_1.dll"/>
+    <ROW Feature_="DVRScan" Component_="LICENSE"/>
+    <ROW Feature_="DVRScan" Component_="python38.dll"/>
+    <ROW Feature_="DVRScan" Component_="ucrtbase.dll"/>
+    <ROW Feature_="DVRScan" Component_="VCRUNTIME140.dll"/>
+    <ROW Feature_="DVRScan" Component_="cv2.cp38win_amd64.pyd"/>
+    <ROW Feature_="DVRScan" Component_="__init__.py"/>
+    <ROW Feature_="DVRScan" Component_="opencv_videoio_ffmpeg451_64.dll"/>
+    <ROW Feature_="DVRScan" Component_="changelog.md"/>
+    <ROW Feature_="DVRScan" Component_="config_file.md"/>
+    <ROW Feature_="DVRScan" Component_="dvrscanlogo_small.png"/>
+    <ROW Feature_="DVRScan" Component_="similar_software.md"/>
+    <ROW Feature_="DVRScan" Component_="_multiarray_tests.cp38win_amd64.pyd"/>
+    <ROW Feature_="DVRScan" Component_="_pocketfft_internal.cp38win_amd64.pyd"/>
+    <ROW Feature_="DVRScan" Component_="lapack_lite.cp38win_amd64.pyd"/>
+    <ROW Feature_="DVRScan" Component_="bit_generator.cp38win_amd64.pyd"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreconsolel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoredatetimel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoredebugl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreerrorhandlingl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorefibersl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorefilel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorefilel120.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorefilel210.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorehandlel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreheapl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreinterlockedl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorelibraryloaderl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorelocalizationl120.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorememoryl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorenamedpipel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreprocessenvironmentl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreprocessthreadsl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreprocessthreadsl111.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreprofilel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorertlsupportl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincorestringl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoresynchl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoresynchl120.dll"/>
+    <ROW Feature_="C4FE6FD5B7C4D07B3A313E754A9A6A8" Component_="C4FE6FD5B7C4D07B3A313E754A9A6A8"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoresysinfol110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoretimezonel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincoreutill110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtconiol110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtconvertl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtenvironmentl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtfilesysteml110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtheapl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtlocalel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtmathl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtprocessl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtruntimel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtstdiol110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtstringl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrttimel110.dll"/>
+    <ROW Feature_="DVRScan" Component_="apimswincrtutilityl110.dll"/>
+    <ROW Feature_="DVRScan" Component_="dvrscan.exe"/>
+    <ROW Feature_="ffmpeg" Component_="ffmpeg.exe"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="dvr_scan_icon.exe" SourcePath="dvr_scan_icon.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1502"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1397"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_GetArpIconPath" Sequence="1401"/>
+    <ROW Action="AI_RemoveExternalUIStub" Condition="(REMOVE=&quot;ALL&quot;) AND ((VersionNT &gt; 500) OR((VersionNT = 500) AND (ServicePackLevel &gt;= 4)))" Sequence="1501"/>
+    <ROW Action="AI_VerifyPrereq" Sequence="1101"/>
+    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_SETMIXINSTLOCATION" Sequence="745"/>
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="201"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="102"/>
+    <ROW Action="AI_DownloadPrereq" Sequence="1297"/>
+    <ROW Action="AI_ExtractPrereq" Sequence="1298"/>
+    <ROW Action="AI_InstallPrerequisite" Sequence="1299"/>
+    <ROW Action="AI_InstallPostPrerequisite" Sequence="1301"/>
+    <ROW Action="AI_CleanPrereq" Sequence="1302"/>
+    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_SETMIXINSTLOCATION" Sequence="745"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="( Version9X OR VersionNT64 )" Description="[ProductName] cannot be installed on [WindowsTypeNTDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="AdvancedInstaller" Root="-1" Key="Software\Caphyon\Advanced Installer" Name="\"/>
+    <ROW Registry="C4FE6FD5B7C4D07B3A313E754A9A6A8" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]\[ProductVersion]" Name="C4FE6FD5B7C4D07B3A313E754A9A6A8" Value="1" Component_="C4FE6FD5B7C4D07B3A313E754A9A6A8"/>
+    <ROW Registry="Caphyon" Root="-1" Key="Software\Caphyon" Name="\"/>
+    <ROW Registry="Comments" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Comments" Value="[ARPCOMMENTS]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Contact" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Contact" Value="[ARPCONTACT]" Component_="AI_CustomARPName"/>
+    <ROW Registry="CurrentVersion" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion" Name="\"/>
+    <ROW Registry="DisplayIcon" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="DisplayIcon" Value="[ARP_ICON_PATH]" Component_="AI_CustomARPName"/>
+    <ROW Registry="DisplayName" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="DisplayName" Value="[AI_PRODUCTNAME_ARP]" Component_="AI_CustomARPName"/>
+    <ROW Registry="DisplayVersion" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="DisplayVersion" Value="[ProductVersion]" Component_="AI_CustomARPName"/>
+    <ROW Registry="EstimatedSize" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="EstimatedSize" Value="#[AI_ARP_SIZE]" Component_="AI_CustomARPName" VirtualValue="#"/>
+    <ROW Registry="HelpLink" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="HelpLink" Value="[ARPHELPLINK]" Component_="AI_CustomARPName"/>
+    <ROW Registry="HelpTelephone" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="HelpTelephone" Value="[ARPHELPTELEPHONE]" Component_="AI_CustomARPName"/>
+    <ROW Registry="InstallLocation" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="InstallLocation" Value="[APPDIR]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Manufacturer" Root="-1" Key="Software\[Manufacturer]" Name="\"/>
+    <ROW Registry="Microsoft" Root="-1" Key="Software\Microsoft" Name="\"/>
+    <ROW Registry="ModifyPath" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="ModifyPath" Value="[AI_UNINSTALLER] /i [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
+    <ROW Registry="NoModify" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="NoModify" Value="#1" Component_="AI_DisableModify" VirtualValue="#"/>
+    <ROW Registry="NoRepair" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="NoRepair" Value="#1" Component_="AI_CustomARPName" VirtualValue="#"/>
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Prereqs" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs" Name="\"/>
+    <ROW Registry="ProductCode_1" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]" Name="\"/>
+    <ROW Registry="ProductName" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="\"/>
+    <ROW Registry="ProductNameProductVersion" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="\"/>
+    <ROW Registry="ProductVersion_1" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]\[ProductVersion]" Name="\"/>
+    <ROW Registry="Publisher" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Publisher" Value="[Manufacturer]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Readme" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Readme" Value="[ARPREADME]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Software" Root="-1" Key="Software" Name="\"/>
+    <ROW Registry="URLInfoAbout" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="URLInfoAbout" Value="[ARPURLINFOABOUT]" Component_="AI_CustomARPName"/>
+    <ROW Registry="URLUpdateInfo" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="URLUpdateInfo" Value="[ARPURLUPDATEINFO]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Uninstall" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall" Name="\"/>
+    <ROW Registry="UninstallPath" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallPath" Value="[AI_UNINSTALLER] /x [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
+    <ROW Registry="UninstallString" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallString" Value="[AI_UNINSTALLER] /x [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+    <ROW Registry="VersionMajor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMajor" Value="#1" Component_="AI_CustomARPName" VirtualValue="#"/>
+    <ROW Registry="VersionMinor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMinor" Value="#0" Component_="AI_CustomARPName" VirtualValue="#"/>
+    <ROW Registry="Windows" Root="-1" Key="Software\Microsoft\Windows" Name="\"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
+    <ROW PrereqKey="C4FE6FD5B7C4D07B3A313E754A9A6A8" DisplayName="Visual C++ Redistributable for Visual Studio 2015-2019 x64" VersionMin="14.26" SetupFileUrl="Prerequisites\Visual C++ Redistributable for Visual Studio 2015-2019\VC_redist.x64.exe" Location="0" ExactSize="0" WinNTVersions="Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" WinNT64Versions="Windows Vista RTM x64, Windows Vista SP1 x64, Windows Server 2008 RTM x64, Windows 7 RTM x64, Windows Server 2008 R2 RTM x64" Operator="1" NoUiComLine="/q /norestart" Options="xf" TargetName="Visual C++ Redistributable for Visual Studio 2015-2019\VC_redist.x64.exe" Feature="C4FE6FD5B7C4D07B3A313E754A9A6A8"/>
+    <ATTRIBUTE name="PrereqsOrder" value="C4FE6FD5B7C4D07B3A313E754A9A6A8"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
+    <ROW SearchKey="C4FE6FD5B7C4D07B3A313E754A9A6A8Vers" Prereq="C4FE6FD5B7C4D07B3A313E754A9A6A8" SearchType="2" SearchString="HKLM\SOFTWARE\Microsoft\DevDiv\VC\Servicing\14.0\RuntimeMinimum\Version" VerMin="14.26.28720" Order="1" Property="PreReqSearch_C4FE6FD5B7C4D07B3A313E"/>
+  </COMPONENT>
+</DOCUMENT>
