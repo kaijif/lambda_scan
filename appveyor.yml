@@ -16,7 +16,7 @@ environment:
 # SignPath Config for Code Signing
 deploy:
 - provider: Webhook
-  url: https://app.signpath.io/API/v1/f2efa44c-5b5c-45f2-b44f-8f9dde708313/Integrations/AppVeyor?ProjectSlug=DVR-Scan&SigningPolicySlug=test-signing
+  url: https://app.signpath.io/API/v1/f2efa44c-5b5c-45f2-b44f-8f9dde708313/Integrations/AppVeyor?ProjectSlug=DVR-Scan&SigningPolicySlug=release-signing
   authorization:
      secure: NPMogMcEb5S/ASMEiL275H79D+Pj9cgUqx8kjTPGXtF9drZW41nljczuhF1XvcxFgI0q9TA1BUX9YuCoTQ3mEQ==
 
@@ -27,7 +27,7 @@ install:
   - echo * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   # Must checkout *exact* commit to meet SignPath's origin verification requirements:
   # https://about.signpath.io/documentation/build-system-integration#ci-integrations-with-origin-verification
-  - git checkout 5ee0d9c1dd64b471f25d3e37066d8717b69ad616
+  - git checkout d09eec6f262cef0bc1daff51dd7dce55151ce341
 
   # Restore Windows build dependencies from the branch we just switched from.
   - git checkout refs/remotes/origin/build-windows -- dist/

@@ -27,7 +27,7 @@
     <ROW Property="ProductCode" Value="1033:{26488159-5FF3-4299-B02C-D7D3666208D9} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="DVR-Scan"/>
-    <ROW Property="ProductVersion" Value="1.5"/>
+    <ROW Property="ProductVersion" Value="1.5.1"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8FEF5940-4574-4C5D-9776-2CDDC0375510}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -224,7 +224,7 @@
     <ROW File="dvrscan.exe" Component_="dvrscan.exe" FileName="dvr-scan.exe" Attributes="0" SourcePath="..\dvr-scan\dvr-scan.exe" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="." PackageFileName="DVR-Scan-1.5-win64" Languages="en" InstallationType="4" ExtUI="true" UseLargeSchema="true" MsiPackageType="x64"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="." PackageFileName="DVR-Scan-1.5.1-win64" Languages="en" InstallationType="4" ExtUI="true" UseLargeSchema="true" MsiPackageType="x64"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
