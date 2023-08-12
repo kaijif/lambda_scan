@@ -765,6 +765,256 @@ class ScanContext:
 
         return self._event_list
 
+    # durr i use two lines to make API i such good programmer
+    def scan_motion_api(
+        self,
+        detector_type: DetectorType = DetectorType.MOG2,
+    ) -> bool:
+        """ Performs motion analysis on the ScanContext's input video(s). """
+        self._stop.clear()
+        buffered_frames = []
+        event_window = []
+        self._event_list = []
+        num_frames_post_event = 0
+        event_start = None
+
+        in_motion_event = False
+        self._frames_processed = 0
+        processing_start = time.time()
+
+        # Seek to starting position if required.
+        if self._start_time is not None:
+            self._input.seek(self._start_time)
+        start_frame = self._input.position.frame_num
+
+        # Show ROI selection window if required.
+        # TODO: This should be done before calling scan_motion.
+        if not self._select_roi():
+            return []
+
+        # Initialize overlays.
+        if self._roi is not None:
+            assert len(self._roi) == 4 and all([isinstance(coord, int) for coord in self._roi])
+        if self._bounding_box:
+            self._bounding_box.set_corrections(
+                downscale_factor=self._downscale_factor, roi=self._roi, frame_skip=self._frame_skip)
+
+        # Calculate size of noise reduction kernel.
+        if self._kernel_size is None:
+            kernel_size = _recommended_kernel_size(self._input.resolution[0],
+                                                   self._downscale_factor)
+        else:
+            kernel_size = _scale_kernel_size(self._kernel_size, self._downscale_factor)
+        assert kernel_size >= 1 and kernel_size % 2 == 1
+
+        # Create motion detector.
+        logger.debug('Using detector %s with params: kernel_size = %d', detector_type.name,
+                     kernel_size)
+        motion_detector = detector_type.value(kernel_size=kernel_size)
+
+        # Correct pre/post and minimum event lengths to account for frame skip factor.
+        post_event_len: int = self._post_event_len.frame_num // (self._frame_skip + 1)
+        pre_event_len: int = self._pre_event_len.frame_num // (self._frame_skip + 1)
+        min_event_len: int = max(self._min_event_len.frame_num // (self._frame_skip + 1), 1)
+        # Calculations below rely on min_event_len always being >= 1 (cannot be zero)
+        assert min_event_len >= 1, "min_event_len must be at least 1 frame"
+        # Ensure that we include the exact amount of time specified in `-tb`/`--time-before` when
+        # shifting the event start time. Instead of using `-l`/`--min-event-len` directly, we
+        # need to compensate for rounding errors when we corrected it for frame skip. This is
+        # important as this affects the number of frames we consider for the actual motion event.
+        start_event_shift: int = (
+            self._pre_event_len.frame_num + min_event_len * (self._frame_skip + 1))
+
+        # Length of buffer we require in memory to keep track of all frames required for -l and -tb.
+        buff_len = pre_event_len + min_event_len
+        event_end = FrameTimecode(timecode=0, fps=self._input.framerate)
+        last_frame_above_threshold = 0
+
+        # Motion event scanning/detection loop. Need to avoid CLI output/logging until end of the
+        # main scanning loop below, otherwise it will interrupt the progress bar.
+        self._logger.info(
+            "Scanning %s for motion events...", "%d input videos" %
+            len(self._input.paths) if len(self._input.paths) > 1 else "input video")
+
+        # Don't use the first result from the background subtractor.
+        processed_first_frame = False
+
+        progress_bar, context_manager = self._create_progress_bar(show_progress=self._show_progress)
+        with context_manager:
+            decode_queue = queue.Queue(MAX_DECODE_QUEUE_SIZE)
+            decode_thread = threading.Thread(
+                target=ScanContext._decode_thread, args=(self, decode_queue), daemon=True)
+            decode_thread.start()
+
+            encode_thread = None
+            if self._output_mode != OutputMode.SCAN_ONLY or self._mask_file is not None:
+                encode_queue = queue.Queue(MAX_ENCODE_QUEUE_SIZE)
+                encode_thread = threading.Thread(
+                    target=ScanContext._encode_thread, args=(self, encode_queue), daemon=True)
+                encode_thread.start()
+
+            while not self._stop.is_set():
+                # Keep polling decode queue until it's empty (signaled via None).
+                frame: Optional[DecodeEvent] = decode_queue.get()
+                if frame is None:
+                    break
+                assert frame.frame_rgb is not None
+                frame_rgb_origin = frame.frame_rgb
+                # Cut frame to selected sub-set if ROI area provided.
+                if self._roi:
+                    frame.frame_rgb = frame.frame_rgb[self._roi[1]:self._roi[1] + self._roi[3],
+                                                      self._roi[0]:self._roi[0] + self._roi[2]]
+                # Apply downscaling factor if provided.
+                if self._downscale_factor > 1:
+                    frame.frame_rgb = frame.frame_rgb[::self._downscale_factor, ::self
+                                                      ._downscale_factor, :]
+                # Apply motion detector, calculate motion amount/score normalized by frame size.
+                motion_mask = motion_detector.apply(frame.frame_rgb)
+                frame_score = cv2.sumElems(motion_mask)[0] / float(
+                    motion_mask.shape[0] * motion_mask.shape[1])
+                above_threshold = frame_score >= self._threshold
+                # Always assign the first frame a score of 0 since some subtractors will output a
+                # mask indicating motion on every pixel of the first frame.
+                if not processed_first_frame:
+                    frame_score = 0.0
+                    processed_first_frame = True
+                if processed_first_frame and above_threshold:
+                    return True
+                event_window.append(frame_score)
+                event_window = event_window[-min_event_len:]
+
+                bounding_box = None
+                if self._bounding_box:
+                    # TODO: Only call clear() when we exit the current motion event.
+                    # TODO: Include frames below the threshold for smoothing, or push a sentinel
+                    # value to update() to compensate the amount of smoothing accordingly.
+                    bounding_box = (
+                        self._bounding_box.update(motion_mask)
+                        if above_threshold else self._bounding_box.clear())
+
+                if self._mask_file and not self._stop.is_set():
+                    encode_queue.put(MaskEvent(motion_mask=motion_mask,))
+
+                # Last frame was part of a motion event, or still within the post-event window.
+                if in_motion_event:
+                    # If this frame still has motion, reset the post-event window.
+                    if above_threshold:
+                        num_frames_post_event = 0
+                        last_frame_above_threshold = frame.timecode.frame_num
+                    # Otherwise, we wait until the post-event window has passed before ending
+                    # this motion event and start looking for a new one.
+                    #
+                    # TODO(#72): We should wait until the max of *both* the pre-event and post-
+                    # event windows have passed. Right now we just consider the post-event window.
+                    else:
+                        num_frames_post_event += 1
+                        if num_frames_post_event >= post_event_len:
+                            in_motion_event = False
+                            # Calculate event end based on the last frame we had with motion plus
+                            # the post event length time. We also need to compensate for the number
+                            # of frames that we skipped that could have had motion.
+                            # We also add 1 to include the presentation duration of the last frame.
+                            event_end = FrameTimecode(
+                                1 + last_frame_above_threshold + self._post_event_len.frame_num +
+                                self._frame_skip, self._input.framerate)
+                            assert event_end.frame_num >= event_start.frame_num
+                            self._event_list.append((event_start, event_end))
+                            if self._output_mode != OutputMode.SCAN_ONLY:
+                                encode_queue.put(
+                                    MotionEvent(start_time=event_start, end_time=event_end))
+
+                    # Send frame to encode thread.
+                    if in_motion_event and self._output_mode == OutputMode.OPENCV:
+                        encode_queue.put(
+                            EncodeFrameEvent(
+                                frame_rgb=frame_rgb_origin,
+                                timecode=frame.timecode,
+                                bounding_box=bounding_box,
+                            ))
+                # Not already in a motion event, look for a new one.
+                else:
+                    # Buffer the required amount of frames and overlay data until we find an event.
+                    if self._output_mode == OutputMode.OPENCV:
+                        buffered_frames.append(
+                            EncodeFrameEvent(
+                                frame_rgb=frame_rgb_origin,
+                                timecode=frame.timecode,
+                                bounding_box=bounding_box,
+                            ))
+                        buffered_frames = buffered_frames[-buff_len:]
+                    # Start a new event once all frames in the event window have motion.
+                    if len(event_window) >= min_event_len and all(
+                            score >= self._threshold for score in event_window):
+                        in_motion_event = True
+                        progress_bar.set_description(
+                            PROGRESS_BAR_DESCRIPTION % (1 + len(self._event_list)), refresh=False)
+                        event_window = []
+                        num_frames_post_event = 0
+                        frames_since_last_event = frame.timecode.frame_num - event_end.frame_num
+                        last_frame_above_threshold = frame.timecode.frame_num
+                        shift_amount = min(frames_since_last_event, start_event_shift)
+                        shifted_start = max(start_frame,
+                                            frame.timecode.frame_num + 1 - shift_amount)
+                        event_start = FrameTimecode(shifted_start, self._input.framerate)
+                        # Send buffered frames to encode thread.
+                        for encode_frame in buffered_frames:
+                            # We have to be careful here. Since we're putting multiple items
+                            # into the queue, we have to keep making sure the encode thread
+                            # is running. Otherwise, the queue will never empty we will block
+                            # indefinitely here waiting for a spot.
+                            if self._stop.is_set():
+                                break
+                            encode_queue.put(encode_frame)
+                        buffered_frames = []
+
+                self._frames_processed += 1 + self._frame_skip
+                progress_bar.update(1 + self._frame_skip)
+
+            # Close the progress bar before producing any more output.
+            if progress_bar is not None:
+                progress_bar.close()
+
+            # Unblock any remaining puts, wait for decode thread, and re-raise any exceptions.
+            while not decode_queue.empty():
+                _ = decode_queue.get_nowait()
+            decode_thread.join()
+            if self._decode_thread_exception is not None:
+                raise self._decode_thread_exception[1].with_traceback(
+                    self._decode_thread_exception[2])
+
+            # Video ended, finished processing frames. If we're still in a motion event,
+            # compute the duration and ending timecode and add it to the event list.
+            if in_motion_event and not self._stop.is_set():
+                # curr_pos already includes the presentation duration of the frame.
+                event_end = FrameTimecode(self._input.position.frame_num, self._input.framerate)
+                self._event_list.append((event_start, event_end))
+                if self._output_mode != OutputMode.SCAN_ONLY:
+                    encode_queue.put(MotionEvent(start_time=event_start, end_time=event_end))
+
+            # Push sentinel to queue, wait for encode thread, and re-raise any exceptions.
+            if encode_thread is not None:
+                encode_queue.put(None)
+                encode_thread.join()
+                if self._encode_thread_exception is not None:
+                    raise self._encode_thread_exception[1].with_traceback(
+                        self._encode_thread_exception[2])
+
+            # Display an error if we got more than one decode failure / corrupt frame.
+            # TODO(v1.6): Add a property to get the number of corrupted frames and move this
+            # warning into cli.controller.
+            # TODO(v1.5.1): This will also fire if no frames are decoded. Add a check to make sure
+            # the fourCC is valid. Also figure out a better way to handle the case where NO frames
+            # are decoded (rather than reporting X frames failed to decode).
+            if self._input.decode_failures > 1:
+                self._logger.error(
+                    "Failed to decode %d frame(s) from video, timestamps may be incorrect. Try"
+                    " re-encoding or remuxing video (e.g. ffmpeg -i video.mp4 -c:v copy out.mp4). "
+                    "See https://github.com/Breakthrough/DVR-Scan/issues/62 for details.",
+                    self._input.decode_failures)
+
+            self._post_scan_motion(processing_start=processing_start)
+
+        return self._event_list
     # TODO(v1.6): Move this into cli.controller and just add a getter for frames_processed.
     def _post_scan_motion(self, processing_start: float):
         processing_time = time.time() - processing_start
